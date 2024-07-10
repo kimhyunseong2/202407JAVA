@@ -1,0 +1,54 @@
+7월9일 도커
+------------------------------------------------------------------
+도커 설치
+- 페이지 60쪽 참고
+------------------------------------------------------------------
+도커에 우분투 설치
+docker run -it --name first-ubuntu ubuntu /bin/bash
+
+빠져나오기
+exit
+
+다시 들어가기
+docker exec -it first-ubuntu /bin/bash
+
+apt-get update
+
+apt-get install vim -y
+
+a, i (편집명령)
+esc 키으로 편집모드를 빠져나감
+:wq (저장 후 탈출) :q! (저장안하고 탈출)
+
+apt-get install default-jdk -y: jdk설치
+
+java -version: 자바 버전
+
+HelloWorld.java코드
+public class HelloWorld {
+        public static void main(String[] ar) {
+                System.out.println("Hello World");
+        }
+}
+------------------------------------------------------------------
+javac HelloWorld.java
+
+java HelloWorld
+
+exit
+
+docker cp first-ubuntu:/home/ubuntu/HelloWorld.java .
+
+docker cp HelloWorld.java first-ubuntu:/home/ubuntu/
+------------------------------------------------------------------
+도커 명령어
+-페이지 92쪽,101쪽 참고
+docker ps -a: 현재 존재하는 컨테이너의 목록 출력
+docker run --name 컨테이너이름 -d httpd: 컨테이너 생성 및 실행
+docker stop 컨테이너이름: 컨테이너를 종료
+docker rm 컨테이너이름: 컨테이너 삭제
+docker run --name 컨테이너이름 -d -p 8080:80 httpd
+-d:백그라운드로 실행
+-p 8080:80 호스트의 포트8080을 컨테이너 포트 80으로 포워딩
+------------------------------------------------------------------
+7월10일 도커

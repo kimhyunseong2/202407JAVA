@@ -1,0 +1,235 @@
+k-디지털
+------------------------------------------------------------------
+7월-자바
+8월-DB연동 및 프론트엔드(JS, jQuery, 리액트 포함)
+오전-자바
+오후-도커
+------------------------------------------------------------------
+7월8일
+정보
+-이클립스에서 프로젝트만들때 module체크해제하면 
+-모듈프로젝트로 생성하지않는다
+-제어판->사용자계정->windows 자격증명관리에 들어가 일반자격증명에 git을 제거할 수 있다
+-클래스,인터페이스명은 대문자로시작
+-git status : 꼭 확인해야 하는 것은 아니지만 현재 상태를 확인할 수 있는 명령어이다.
+
+설치
+c드라이브에 _dev폴더를 생성
+_dev폴더안에 jdk11, jdk21설치
+(구글에open jdk11검색,오라클에서 jdk21- x64 Compressed Archive)
+git설치(download)-standalone Installer
+
+git에올리고싶지않으면
+- .gitignore파일에 올리고싶지않은 파일을 적어 저장
+
+git에 올리는법
+-Repository를 만든다
+-cmd에 명령어를 차례로 입력한다.
+1. git init : 제일 먼저 해줘야 할 것 바로 현재 폴더를 git의 관리하에 둘
+2. git add . : 현재 폴더 변경된것 모두를 깃에 올린다
+3. git commit -m "first commit(메시지)" : 첫 커밋이란 메세지와 함께 커밋을 날렸다
+4. git remote add origin https://github.com/kimhyunseong2/202407JAVA.git : 현재 폴더와 깃헙레포지토리의 오리진마스터와 연결한다
+5. git push -u origin master : 깃을 서버의 오리진에 로컬의 마스터를 밀어넣는다.
+------------------------------------------------------------------
+7월 9일 자바
+------------------------------------------------------------------
+정보
+-기본 타입의 크기는 CPU나 운영체제에 따라 변하지 않음
+-String타입은 프리미티브타입이 아니다
+-alt+shift+j 주석생성
+javadoctool
+-project->Generate javadoc->vm option에 
+-local ko_KR -encoding UTF-8 -charset UTF-8 -docencoding UTF-8입력
+
+코드
+문제1:변수의 값을 변경하는 코드(swap)
+int x = 10;
+int y = 20;
+System.out.println("x:" + x + ", y:" + y);
+실행결과: x:10, y:20
+
+int temp = x;
+x = y;
+y = temp;
+System.out.println("x:" + x + ", y:" + y);
+실행결과: x:20, y:10
+------------------------------------------------------------------
+int x = 10;
+int y = 20;
+System.out.printf("x=%d, y=%d\n", x, y);
+실행결과: x=10, y=20
+
+int temp = x;
+x = y;
+y = temp;
+System.out.printf("x=%d, y=%d\n", x, y);
+실행결과: x=20, y=10
+------------------------------------------------------------------
+메서드를 만듦
+public class swap {
+	
+	
+	public static void swap(int a, int b) {
+		 int temp = a;
+		 a = b;
+		 b = temp;
+		 System.out.printf("a=%d, b=%d\n", a, b);
+	}
+	public static void main(String[] args) {
+		int x = 10;
+		int y = 20;
+		System.out.printf("x=%d, y=%d\n", x, y);
+		swap(x, y);
+	   
+	}
+
+}
+실행결과: x=10, y=10
+              a=10, b=10
+------------------------------------------------------------------
+문제2:입력받아 남은 사과갯수 구하는 코드
+public class Ex02 {
+
+public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("사과의 갯수 입력:");
+		String input = scan.nextLine();
+		int apple = Integer.parseInt(input);
+	
+		System.out.print("사람 명수 입력:");
+		input = scan.nextLine();
+		int pepole = Integer.parseInt(input);
+		
+		int result = apple % (pepole);
+		System.out.printf("남은 사과의 개수: %d개\n",result);	
+------------------------------------------------------------------	
+메서드를 만듦
+public static int getCount(String msg, Scanner sc) {
+		System.out.print(msg);
+		String input = sc.nextLine();
+		return Integer.parseInt(input);
+	}
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		
+		int apple = getCount("사과의 갯수 입력:", scan);
+//		System.out.print("사과의 갯수 입력:");
+//		String input = sc.nextLine();
+//		int apple = Integer.parseInt(input);
+	
+		
+		int pepole = getCount("사람 명수 입력:", scan);
+//		System.out.print("사람 명수 입력:");
+//		input = scan.nextLine();
+//		int pepole = Integer.parseInt(input);
+		
+		int result = apple % (pepole);
+		System.out.printf("남은 사과의 개수: %d개\n",result);
+------------------------------------------------------------------
+문제3: 두 개의 값을 받아서 큰수를 출력하는 코드(단,같으면 0으로 출력)
+public class Ex02 {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("숫자를입력:");
+		String input = scan.nextLine();
+		int num1 = Integer.parseInt(input);
+		
+		System.out.print("숫자를입력:");
+		input = scan.nextLine();
+		int num2 = Integer.parseInt(input);
+		
+		if(num1>num2) {
+			System.out.print(num1);
+		}
+		else if(num1<num2) {
+			System.out.print(num2);
+		}
+		else if(num1==num2) {
+			System.out.print(0);
+		}
+------------------------------------------------------------------
+문제4: 3개의 정수값을 받아 최대값을 구하여 출력하는 코드
+public class Ex02 {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("첫번째 정수를 입력하세요:");
+		String input = scan.nextLine();
+		int num1 = Integer.parseInt(input);
+		
+		System.out.print("두번째 정수를 입력하세요:");
+		input = scan.nextLine();
+		int num2 = Integer.parseInt(input);
+		
+		System.out.print("세번째 정수를 입력하세요:");
+		input = scan.nextLine();
+		int num3 = Integer.parseInt(input);
+		int max = num1;
+		
+		if(num2>max) {
+			max= num2;
+		}
+		
+		if(num3>max) {
+			max= num3;
+		}
+		System.out.println("최대값은" + max + "입니다");
+------------------------------------------------------------------
+문제5: 학점을 입력받아 등급을 나타내는 코드
+public class Ex02 {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("학점을 입력:");
+		String input = scan.nextLine();
+		int grade = Integer.parseInt(input);
+		
+		if(grade>=90) {
+			System.out.print("A");
+		}else if(grade>=80){
+			System.out.print("B");
+		}else if(grade>=70){
+			System.out.print("C");
+		}else if(grade>=60){
+			System.out.print("D");
+		}else {
+			System.out.print("F");
+		}
+
+------------------------------------------------------------------
+문제6: 정수의값을 입력받고 양의정수면 그냥출력 음의정수면 양수로 변환에서 출력하는 코드
+public class Ex02 {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("정수를 입력하세요:");
+		String input = scan.nextLine();
+		int num = Integer.parseInt(input);
+		
+		if(num>0) {
+			System.out.print(num);
+		}else if(num<0) {
+			System.out.print(-num);
+		}
+------------------------------------------------------------------
+7월10일 자바
