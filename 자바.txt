@@ -885,3 +885,231 @@ public class Max {
 }
 ------------------------------------------------------------------
 7월12일
+정보
+-임의의 정수를 뽑는 방법으로 Math.random()메서드를 활용한다
+
+-Set<Integer> lottoSet = new HashSet<>(); // 중복을 허용하지 않는 Set 사용
+
+-for (int n : a) {                             // for-each, 향상된 for 문
+System.out.println(n);
+}
+
+- source -> Generate Constructor usingfields : 생성자 생성에 필요
+             -> Generate toString()
+
+-객체 입출력 보조 스트림: 페이지649쪽 참고
+-implements Serializable: 객체를 파일에 저장하기위해 직렬화해야하는데 이때 사용
+
+-Member[] list2 = (Member[]) ois.readObject();
+System.arraycopy(list2, 0, list, 0, list2.length);            페이지 218쪽,219쪽참고
+------------------------------------------------------------------
+팩토리얼 코드(반복문)
+public class Factorial1 {
+	public static int fac(int n) {
+		int res = 1;
+		for (int i = 1; i<= n; i++) {
+			res *= i;
+		}
+		return res;
+	}
+	public static void main(String[] args) {
+		int num = 4;
+		int result = fac(num);
+		System.out.println(result);
+
+	}
+
+}
+------------------------------------------------------------------
+재귀호출 메서드
+public class Factorial1 {
+	public static int fac2(int n) {   // 재귀호출 메서드(recursive)
+		if (n==0) {
+			return 1;
+		}else {
+			return n * fac2(n-1);
+		}
+	}
+	public static void main(String[] args) {
+		int num = 4;
+		int result = fac2(num);
+		System.out.println(result);
+
+	}
+
+}
+------------------------------------------------------------------
+로또번호 뽑는 코드
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+public class LottoEx {
+
+	public static void main(String[] args) {
+		Random rand = new Random();
+		Set<Integer> lottoSet = new HashSet<>(); // 중복을 허용하지 않는 Set 사용
+		while (lottoSet.size()<6) {
+			int number = rand.nextInt(45) + 1;
+			lottoSet.add(number);
+		}
+		
+		/*lottoSet.add(14);
+		lottoSet.add(14);
+		lottoSet.add(7);
+		System.out.println(lottoSet.size());*/
+		System.out.println(lottoSet);
+		
+	}
+
+}
+------------------------------------------------------------------
+버블
+public class BubbleEx {
+
+	public static void main(String[] args) {
+		int a[] = {10, 3, 1, 4, 2};
+		
+		for (int i = 0; i < a.length-1; i++) {
+			for(int j = a.length-1; j > i; j--) {
+				if (a[j] < a[j-1]) {
+					int tmp = a[j];
+					a[j] = a[j-1];
+					a[j-1] = tmp;
+				}
+			}
+		}
+		for (int i=0; i < a.length; i++) {
+			System.out.print(a[i]+" ");
+		}
+		System.out.println();
+	}
+	
+}
+------------------------------------------------------------------
+향상된 for문
+public static void main(String[] args) {
+		int[][] array = {{95, 86}, 
+						 {83, 92, 96},
+						 {78,83,93,87,88}};
+		
+
+			int sum = 0;
+			double avg = 0.0;
+			int cnt = 0;
+			for (int i = 0; i<array.length; i++) {
+				for(int j =0; j<array[i].length; j++) {
+					sum +=array[i][j];
+					cnt++;
+				}
+			}
+			avg = (double)sum/cnt;
+			System.out.println("sum: " + sum);
+			System.out.println("avg: " + avg);
+
+	}
+
+------------------------------------------------------------------
+Search 코드
+public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		String a[] = {"Hello", "자바", "가나다", "동서울", "스프링"};
+		String val;
+		
+		System.out.print("찾을 문자열:");
+		val = scan.nextLine();
+		int find = -1; // 찾기 전 또는 못찾았을 때 
+		
+		for (int i = 0; i < a.length; i++) {
+			if (a[i].equals(val)) {
+				find = i;
+				break;
+			}
+		}
+		System.out.println("인덱스:"+find);
+	}
+
+------------------------------------------------------------------
+문제1: 2차원 배열을 이용하여 국어점수와 수학점수를 입력받아 학생별 평균을 출력하는 코드
+public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("학생수 입력:");
+		int num = Integer.parseInt(scan.nextLine());
+		double scores[][] = new double[num][3];
+		for (int i =0; i<scores.length; i++) {
+			System.out.println(i+"번째 학생");
+			System.out.print("국어 점수:");
+			scores[i][0] = Double.parseDouble(scan.nextLine());
+			System.out.print("수학 점수:");
+			scores[i][1] = Double.parseDouble(scan.nextLine());
+			scores[i][2] = (scores[i][0] + scores[i][1])/2;
+			System.out.println("평균:"+ scores[i][2]);
+			
+			
+			
+		}
+		
+	
+
+	}
+
+------------------------------------------------------------------
+객체를 파일에 저장하는 코드
+package project1;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class Ex3 {
+
+	public static void main(String[] args) {
+		Member[] list = {
+				new Member("강하나", "911224", "010-1234-5678"),
+				new Member("김하나", "891224", "010-1234-3456"),
+				new Member("이하나", "901224", "010-7890-5678")
+		};
+		try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
+				ObjectOutputStream oos = new ObjectOutputStream(fos)){
+			
+			oos.writeObject(list);
+			System.out.println("객체를 파일에 저장했습니다.");
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
+------------------------------------------------------------------
+파일에서 객체를 가져오는 코드
+package project1;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class Ex4 {
+
+	public static void main(String[] args) {
+		Member[] list = null;
+		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
+				ObjectInputStream ois = new ObjectInputStream(fis)){
+			list = (Member[]) ois.readObject();
+			System.out.println("파일에서 객체를 가져왔습니다.");
+
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		for (Member member : list) {
+			System.out.println(member);
+		}
+	}
+}
+
+
+
+

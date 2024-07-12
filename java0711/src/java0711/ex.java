@@ -1,14 +1,14 @@
 package java0711;
 
+import java.util.Scanner;
+
 public class ex {
 
 	public static void main(String[] args) {
-		long var1 = 2L;
-		float var2 = 1.8f;
-		double var3 = 2.5;
-		String var4 = "3.9";
-		int result = (int)(var1+var2+var3+(int)Double.parseDouble(var4));
+		int score = 85;
+		String result = (!(score>90)) ? "가" : "나" ;
 		System.out.println(result);
+		
 	}
 
 }
