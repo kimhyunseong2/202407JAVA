@@ -1189,3 +1189,267 @@ public class VectorEx1 {
 	}
 
 ------------------------------------------------------------------
+7월16일
+정보
+클래스의 구성멤버
+- public class ClassName{
+	int fieldname; //필드
+                ClassName() {...} //생성자
+         	void methodName() {...} //메소드
+   }
+------------------------------------------------------------------
+-필드(Field): 객체의 데이터가 저장되는 곳
+필드 선언: 클래스 중괄호 {}블록 어디서든 선언하나, 생성자와 메소드 내부에서는 선언할 수 없다
+
+필드 사용: 클래스 내부의 생성자와 메소드에서 바로 사용이 가능하나, 클래스 외부에서 사용할 경우
+반드시 객체를 생성하고 참조 변수를 통해 사용해야한다 
+------------------------------------------------------------------
+-생성자(Constructor): 객체 생성 시 초기화 역할 담당
+생성자 오버로딩: 매개변수를 달리하는 생성자를 여러 개 선언하는 것
+public class 클래스 {
+    클래스 ( [타입 매개변수, ...]) {
+                                                               [생성자 오버로딩]
+                                                               매개 변수의 타입, 개수, 순서가 다르게 선언  
+     ...
+     }
+    클래스 ( [타입 매개변수, ...]) {
+
+     ...
+     }
+}
+기본 생성자(Default Constructor): 클래스 선언 시 컴파일러에 의해 자동으로 추가되는 생성자
+
+생성자 선언: 클래스로부터 객체를 생성할 때 호출되는 생성자를 명시적으로 선언할 수 있다
+생성자를 선언하면 기본 생성자는 생성되지 않는다
+
+매개변수: 생성자 호출 시 값을 전달받기 위해 선언되는 변수
+
+다른 생성자 호출: this()
+this는 객체 자신에 대한 레퍼런스다
+this 와 this()는 다르다
+------------------------------------------------------------------
+-메소드(Method): 객체의 동작에 해당하는 실행 블록
+메소드 선언부: 메소드 시그너처
+리턴타입 메소드이름 ([매개변수선언, ...]){
+	실행할 코드 작성하는 곳
+}
+리턴타입: 메소드가 리턴하는 결과의 타입을 표시한다
+
+메소드 이름: 메소드의 기능이 드러나도록 식별자 규칙에 맞게 이름을 지어준다
+숫자로 시작하면 안되고 $와 _를 제외한 특수 문자를 사용하지 말아야 한다
+메소드 이름은 소문자로 작성한다
+서로 다른 단어가 혼합된 이름이면 뒤이어 오는 단어의 첫 글자는 대문자로 작성한다
+
+매개 변수 선언: 메소드를 실행할 때 필요한 데이터를 받기 위한 변수를 선언한다
+
+메소드 실행 블록: 실행할 코드를 작성한다
+
+메소드 오버로딩 : 클래스 내에 같은 이름의 메소드를 여러 개 선언하는 것
+class 클래스 {
+   리턴 타입 메소드이름 (타입 변수, ...) {...}
+    상관없음    동일        매개변수의 타입,개수, 순서가 달라야함
+   리턴 타입 메소드이름 (타입 변수, ...) {...}
+
+void: 리턴값이 없는 메소드는 리턴 타입으로 void를 기술해야한다
+
+매개변수: 메소드 호출 시 제공되는 매개값은 메소드 선언부의 매개변수에 차례대로 대입되어
+메소드 블록 실행 시 이용된다
+
+return문: 메소드 선언부에 리턴 타입이 있다면 리턴값을 지정하기 위해 return문이 반드시 있어야 한다
+리턴타입이 void라면 return문은 필요없지만 메소드 실행 종료를 위해 사용 할 수도 있다
+------------------------------------------------------------------
+-lombok 다운로드 -> cmd에 java -jar lombok.jar 명령어 실행
+buldpath->configureBuildpath->Libraries->classpath클릭->Add External JARs
+
+this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+-스윙을 실행했을때 윈도우창을 x키를 클릭하면 프로그램이 종료하게하는 코드
+클래스 상속: 부모클래스의 필드와 메소드를 자식클래스에서 사용할 수 있도록한다
+class 자식클래스 extends 부모클래스{
+//필드
+//생성자
+//메소드
+}
+
+-super()는 부모의 기본생성자를 호출한다
+자식클래스( 매개변수선언, ... ){
+      super( 매개값, ... );
+      ...
+}
+
+메소드 재정의: 부모메소드를 자식클래스에서 다시 정의하는 것
+재정의방법
+-부모의 메소드와 동일한 시그너처(리턴타입,메소드이름.매개변수목록)를 가져야한다
+
+-접근 제한을 더 강하게 재정의할 수 없다
+(부모메소드가 public 접근 제한을 가지고 있을 경우 재정의하는 자식메소드는 default나 private 접근 제한으로 수정할 수 없다는 뜻
+단 반대는 가능하다 부모 메소드가 default 접근 제한을 가지면 재정의하는 자식메소드는 default 또는 public 접근 제한을 가질 수 있다)
+
+-새로운 예외(Exception)를 throws할 수 없다
+
+자바는 다중상속을 허용하지 않는다
+------------------------------------------------------------------
+생성자&기본생성자 코드
+Cat.java
+public class Cat{
+	private String breed; // 품종
+	private String color; // 색깔
+	private int age; // 나이
+	
+	
+	
+	public Cat(String breed) {
+//		super(); // this()
+//		this.breed = breed;
+		this(breed, "흰색", 10);
+	}
+	
+	public Cat(String breed, String color) {
+//		super();
+//		this.breed = breed;
+//		this.color = color;
+		this(breed, color, 10);
+	}
+	
+	public Cat(String breed, String color, int age) {
+		super(); //this. super.
+		this.breed = breed;
+		this.color = color;
+		if (age > 9) {
+			this.age = age;
+		}
+		
+	}
+	
+	Cat(){ // 기본 생성자
+		System.out.println("Cat()");
+	}
+	
+	Cat(int age) { // 생성자
+	}
+	
+	@Override
+	public String toString() {
+		return "고양이 [품종=" + breed + ", 색깔=" + color + ", 나이=" + age + "]";
+	}
+	
+	public String getBreed() {
+		return breed;
+	}
+	
+	public void setBreed(String breed) {
+		this.breed = breed;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int age) {
+		if (age > 9) {
+			this.age = age;
+		}else {
+			this.age = 10;
+		}
+		
+	}
+
+	
+}
+
+Ex1.java
+public class Ex1 {
+
+	public static void main(String[] args) {
+		Cat cat = new Cat("페르시안", "검정", 9);
+		cat.setAge(9);
+		System.out.println(cat);
+
+	}
+
+}
+------------------------------------------------------------------
+swing 코드
+import javax.swing.JFrame;
+
+public class MyFrame extends JFrame{
+	
+	public MyFrame() {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("안녕 스윙");
+		this.setLocation(700,300);
+		this.setSize(500, 300);
+		this.setVisible(true);
+	}
+	public static void main(String[] args) {
+		new MyFrame();
+
+	}
+
+}
+------------------------------------------------------------------
+상속 코드
+부모클래스
+public class Point {
+	int x, y;
+	
+	public Point() {
+		System.out.println("부모 기본 생성자 호출");
+	}
+	
+	public Point(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+
+	void method1() {
+		System.out.println(x + "," + y);
+	}
+}
+------------------------------------------------------------------
+자식클래스
+public class ColorPoint extends Point{
+	
+	public ColorPoint() {
+		super(100, 200);
+		System.out.println("자식 기본 생성자 호출");
+		System.out.println(x);
+		method1();
+	}
+	
+	public ColorPoint(int x, int y) {
+		super(x, y);
+		
+	}
+
+	@Override
+	void method1() {
+		
+		super.method1();
+		System.out.println("자식이 오버라이딩!");
+	}
+	
+	
+
+}
+------------------------------------------------------------------
+메인클래스
+public class Ex2 {
+
+	public static void main(String[] args) {
+		ColorPoint colorPoint = new ColorPoint();
+//		System.out.println(colorPoint.x);
+//		System.out.println(colorPoint.y);
+//		colorPoint.method1();
+	}
+
+}
+------------------------------------------------------------------

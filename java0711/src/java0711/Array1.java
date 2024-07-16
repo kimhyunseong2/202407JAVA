@@ -8,7 +8,7 @@ public class Array1 {
 		int sum = 0;
 		double avg = 0;
 		
-		System.out.println(scores[4]);
+		System.out.println(scores[5]);
 		
 		for (int i=0; i<scores.length; i++) {
 			sum += scores[i];

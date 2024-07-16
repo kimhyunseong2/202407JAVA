@@ -57,6 +57,10 @@ public class project {
 				for(Member member2 : list) {
 					if(member2.getName().equals(id) && member2.getNum().equals(strPassword)) {
 						member = member2;
+						System.out.println("로그인 성공!!");
+						break;
+					}else {
+						System.out.println("로그인 실패 다시 로그인하세요");
 						break;
 					}
 				}
