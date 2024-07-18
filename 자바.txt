@@ -1260,7 +1260,7 @@ return문: 메소드 선언부에 리턴 타입이 있다면 리턴값을 지정
 ------------------------------------------------------------------
 -lombok 다운로드 -> cmd에 java -jar lombok.jar 명령어 실행
 buldpath->configureBuildpath->Libraries->classpath클릭->Add External JARs
-
+------------------------------------------------------------------
 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 -스윙을 실행했을때 윈도우창을 x키를 클릭하면 프로그램이 종료하게하는 코드
 클래스 상속: 부모클래스의 필드와 메소드를 자식클래스에서 사용할 수 있도록한다
@@ -1453,3 +1453,410 @@ public class Ex2 {
 
 }
 ------------------------------------------------------------------
+7월17일
+정보
+-인스턴스 멤버: 객체를 생성한 후 사용할 수 있는 필드와 메소드
+
+-정적멤버: 클래스에 고정된 멤버로서 객체를 생성하지 않고 사용할 수 있는 필드와 메소드
+static:정적 멤버를 선언할 때 사용하는 키워드
+
+-접근 제한자: 클래스와 인터페이스를 다른 패키지에서 사용하지 못하도록 막을 필요가 있다
+그리고 객체 생성을 막기 위해 생성자를 호출하지 못하게 하거나 필드나 메소드를 사용하지 못하도록
+막아야되는경우도 있다 이때 접근제한자를 사용한다
+
+----------------------------------------------------------------------------
+접근 제한                                    적용 대상                                     접근할 수 없는 클래스
+----------------------------------------------------------------------------
+public                               클래스,필드,생성자,메소드                                 없음
+----------------------------------------------------------------------------
+protected                               필드,생성자,메소드                자식클래스가 아닌 다른패키지에 소속된 클래스
+----------------------------------------------------------------------------
+default                              클래스,필드,생성자,메소드                          다른 패키지에 소속된 클래스
+----------------------------------------------------------------------------
+private                                  필드,생성자,메소드                                    모든 외부 클래스
+----------------------------------------------------------------------------
+-클래스는 public, default 접근 제한을 가진다
+-생성자는 public, default, private, protected 접근 제한을 가진다
+
+-Getter/Setter: 필드는 외부에서 접근할 수 없도록 막고 메소드는 공개해서 외부에서 메소드를 통해
+필드에 접근하도록 유도한다 필드의 값을 외부로 리턴해주는 메소드를 Getter
+외부에서 값을 받아 필드를 변경하는 메소드를 Setter
+
+-클래스를 선언할 때 final 키워드를 class 앞에 붙이면 상속할 수 없다
+-메소드를 선언할 때 final 키워드를 붙이면 재정의를 할 수 없다
+
+-다형성: 객체 사용 방법은 동일하지만 실행결과가 다양하게 나오는 성질을 말한다
+자식 객체가 재정의된 메소드를 가지고 있을 경우 부모 타입으로 자동 타입 변환 후에
+메소드를 호출하면 재정의된 자식 메소드가 호출 되면서 다양한 실행결과를 가져온다
+------------------------------------------------------------------
+7월18일
+정보
+-추상(abstract)
+추상 클래스: 클래스들의 공통적인 필드와 메소드를 추출해서 선언한 클래스
+
+추상 메소드: 추상 클래스에서만 선언할 수 있고 메소드의 선언부만 있는 메소드
+추상 메소드는 자식 클래스에서 재정의되어 실행 내용을 결정해야 한다
+
+-인터페이스: 객체의 사용방법을 정의한 타입이며 개발 코드와 객체가 서로 통신하는 접점역할
+개발코드가 인터페이스의 메소드를 호출하면 인터페이스는 객체의 메소드를 호출시킨다
+구성멤버는 상수필드와 추상메소드가 있다
+
+-상수필드: 기본적으로 public static final 특성을 갖는다 관례적으로 필드 이름은 모두 대문자로 작성하고
+선언 시 초기값을 대입해야한다
+
+-추상메소드: 인터페이스에 선언된 메소드는 public abstract가 생략되고 메소드 선언부만 있다
+구현 클래스는 반드시 추상 메소드를 재정의해야한다
+
+-implements: 구현 클래스는 어떤 인터페이스로 사용 가능한지(어떤 인터페이스를 구현하고 있는지)를 기술하기 위해 
+클래스 선언 시 implements키워드를 사용한다 
+
+-자동 타입변환: 구현 객체가 인터페이스 변수에 대입되는 것
+
+-다형성: 상속은 같은 종류의 하위 클래스를 만드는 기술이고 인터페이스는 사용 방법이 동일한 클래스를
+만드는 기술이라는 개념상의 차이는 있지만 둘 다 다형성을 구현하는 방법은 비슷하다 
+모두 재정의와 타입 변환 기능을 제공하기 때문이다
+
+-강제 타입 변환: 인터페이스에 대입된 구현 객체를 다시 원래 구현 클래스 타입으로 변환하는 것
+
+-instanceof: 강제 타입 변환을 하기 전에 변환이 가능한지 조사할 때 사용
+상속에서는 자식 클래스 타입인지, 인터페이스에서는 구현 클래스 타입인지를 확인할 때 사용
+
+-인터페이스 상속: 클래스는 다중 상속을 허용하지 않지만 인터페이스는 다중 상속을 허용한다
+extends 키워드 뒤에 상위 인터페이스가 올 수 있다
+------------------------------------------------------------------
+swing으로 만든 계산기 코드
+1번째 방법
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Cal extends JFrame{
+	JButton plus, minus, multiply, divide;
+	JTextField num1, num2;
+	JLabel label02;
+	
+	public Cal() {
+		
+		setTitle("계산기 화면");
+		setSize(300, 250);	
+
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setBounds(0, 0, 300,40);
+		add(titlePanel);
+		JLabel title = new JLabel("계산기", JLabel.CENTER);
+		title.setFont(new Font("함초롱돋움", Font.BOLD, 20));
+		titlePanel.add(title);	
+
+		
+			
+		JPanel numPanel = new JPanel();		
+		numPanel.setBounds(0, 40, 300, 40);
+		add(numPanel);		
+		num1 = new JTextField(5);	
+		numPanel.add(num1);
+		num2 = new JTextField(5);
+		numPanel.add(num2);
+	
+		
+		
+		JPanel btPanel01 = new JPanel();	
+		btPanel01.setBounds(0, 80, 300, 40);
+		add(btPanel01);		
+		plus = new JButton("+");		
+		btPanel01.add(plus);
+		minus = new JButton("-");
+		btPanel01.add(minus);
+		
+		
+		JPanel btPanel02 = new JPanel();	
+		btPanel02.setBounds(0, 120, 300, 40);
+		add(btPanel02);		
+		multiply = new JButton("*");	
+		btPanel02.add(multiply);
+		divide = new JButton("/");
+		btPanel02.add(divide);
+				
+		
+		JPanel resultPanel = new JPanel();
+		resultPanel.setBounds(0, 160, 300, 40);
+		add(resultPanel);
+		JLabel label01 = new JLabel("계산결과 : ");
+		label02 = new JLabel("");
+		resultPanel.add(label01);
+		resultPanel.add(label02);
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
+		setVisible(true);		
+		plus.addActionListener(new MyListener());
+		minus.addActionListener(new MyListener());
+		multiply.addActionListener(new MyListener());
+		divide.addActionListener(new MyListener());
+		
+	}
+	
+	class MyListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+//			System.out.println(e.getActionCommand());
+			double result = 0.0;
+			double no1 = Double.parseDouble(num1.getText());
+			double no2 = Double.parseDouble(num2.getText());
+			switch (e.getActionCommand()) {
+			case "+": result = no1 + no2; break;
+			case "-": result = no1 - no2; break;
+			case "*": result = no1 * no2; break;
+			case "/": result = no1 / no2; break;
+			}
+//			if (e.getSource()==plus) {
+//				result = no1 + no2;
+//			}else if(e.getSource()==minus) {
+//				result = no1 - no2;
+//			}else if(e.getSource()==multiply) {
+//				result = no1 * no2;
+//			}else if(e.getSource()==divide) {
+//				result = no1 / no2;
+//			}
+			label02.setText(String.valueOf(result));
+		}
+		
+	}
+	
+	public static void main(String[] args) {  
+		new Cal();
+	}
+
+}
+------------------------------------------------------------------
+2번째 방법
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Cal2 extends JFrame implements ActionListener{
+	JButton plus, minus, multiply, divide;
+	JTextField num1, num2;
+	JLabel label02;
+	
+	public Cal2() {
+		
+		setTitle("계산기 화면");
+		setSize(300, 250);	
+
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setBounds(0, 0, 300,40);
+		add(titlePanel);
+		JLabel title = new JLabel("계산기", JLabel.CENTER);
+		title.setFont(new Font("함초롱돋움", Font.BOLD, 20));
+		titlePanel.add(title);	
+
+		
+			
+		JPanel numPanel = new JPanel();		
+		numPanel.setBounds(0, 40, 300, 40);
+		add(numPanel);		
+		num1 = new JTextField(5);	
+		numPanel.add(num1);
+		num2 = new JTextField(5);
+		numPanel.add(num2);
+	
+		
+		
+		JPanel btPanel01 = new JPanel();	
+		btPanel01.setBounds(0, 80, 300, 40);
+		add(btPanel01);		
+		plus = new JButton("+");		
+		btPanel01.add(plus);
+		minus = new JButton("-");
+		btPanel01.add(minus);
+		
+		
+		JPanel btPanel02 = new JPanel();	
+		btPanel02.setBounds(0, 120, 300, 40);
+		add(btPanel02);		
+		multiply = new JButton("*");	
+		btPanel02.add(multiply);
+		divide = new JButton("/");
+		btPanel02.add(divide);
+				
+		
+		JPanel resultPanel = new JPanel();
+		resultPanel.setBounds(0, 160, 300, 40);
+		add(resultPanel);
+		JLabel label01 = new JLabel("계산결과 : ");
+		label02 = new JLabel("");
+		resultPanel.add(label01);
+		resultPanel.add(label02);
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
+		setVisible(true);		
+		plus.addActionListener(this);
+		minus.addActionListener(this);
+		multiply.addActionListener(this);
+		divide.addActionListener(this);
+		
+	}
+	
+	public static void main(String[] args) {  
+		new Cal2();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		double result = 0.0;
+		double no1 = Double.parseDouble(num1.getText());
+		double no2 = Double.parseDouble(num2.getText());
+		switch (e.getActionCommand()) {
+		case "+": result = no1 + no2; break;
+		case "-": result = no1 - no2; break;
+		case "*": result = no1 * no2; break;
+		case "/": result = no1 / no2; break;
+		}
+//		if (e.getSource()==plus) {
+//			result = no1 + no2;
+//		}else if(e.getSource()==minus) {
+//			result = no1 - no2;
+//		}else if(e.getSource()==multiply) {
+//			result = no1 * no2;
+//		}else if(e.getSource()==divide) {
+//			result = no1 / no2;
+//		}
+		label02.setText(String.valueOf(result));
+		
+	}
+
+}
+------------------------------------------------------------------
+3번째 방법
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Cal3 extends JFrame {
+	JButton plus, minus, multiply, divide;
+	JTextField num1, num2;
+	JLabel label02;
+	
+	public Cal3() {
+		
+		setTitle("계산기 화면");
+		setSize(300, 250);	
+
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setBounds(0, 0, 300,40);
+		add(titlePanel);
+		JLabel title = new JLabel("계산기", JLabel.CENTER);
+		title.setFont(new Font("함초롱돋움", Font.BOLD, 20));
+		titlePanel.add(title);	
+
+		
+			
+		JPanel numPanel = new JPanel();		
+		numPanel.setBounds(0, 40, 300, 40);
+		add(numPanel);		
+		num1 = new JTextField(5);	
+		numPanel.add(num1);
+		num2 = new JTextField(5);
+		numPanel.add(num2);
+	
+		
+		
+		JPanel btPanel01 = new JPanel();	
+		btPanel01.setBounds(0, 80, 300, 40);
+		add(btPanel01);		
+		plus = new JButton("+");		
+		btPanel01.add(plus);
+		minus = new JButton("-");
+		btPanel01.add(minus);
+		
+		
+		JPanel btPanel02 = new JPanel();	
+		btPanel02.setBounds(0, 120, 300, 40);
+		add(btPanel02);		
+		multiply = new JButton("*");	
+		btPanel02.add(multiply);
+		divide = new JButton("/");
+		btPanel02.add(divide);
+				
+		
+		JPanel resultPanel = new JPanel();
+		resultPanel.setBounds(0, 160, 300, 40);
+		add(resultPanel);
+		JLabel label01 = new JLabel("계산결과 : ");
+		label02 = new JLabel("");
+		resultPanel.add(label01);
+		resultPanel.add(label02);
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
+		setVisible(true);	
+		plus.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double no1 = Double.parseDouble(num1.getText());
+				double no2 = Double.parseDouble(num2.getText());
+				label02.setText(String.valueOf(no1+no2));
+			}
+		});
+		minus.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double no1 = Double.parseDouble(num1.getText());
+				double no2 = Double.parseDouble(num2.getText());
+				label02.setText(String.valueOf(no1-no2));
+				
+			}
+		});
+		multiply.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double no1 = Double.parseDouble(num1.getText());
+				double no2 = Double.parseDouble(num2.getText());
+				label02.setText(String.valueOf(no1*no2));
+				
+			}
+		});
+		divide.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double no1 = Double.parseDouble(num1.getText());
+				double no2 = Double.parseDouble(num2.getText());
+				label02.setText(String.valueOf(no1/no2));
+				
+			}
+		});
+	}
+	
+	public static void main(String[] args) {  
+		new Cal3();
+	}
+
+
+
+}

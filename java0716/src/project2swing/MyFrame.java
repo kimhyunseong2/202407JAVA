@@ -32,10 +32,10 @@ public class MyFrame extends JFrame{
 	JButton jb4 = new JButton("출금");
 	JButton jb5 = new JButton("잔고");
 	JTextArea ta = new JTextArea();
-	List<Member> list ;
+	List<Member> list ;  // = new ArrayList<>();
 	Member member ; //로그인 된 현재 사용자
 	public MyFrame() {
-		      // = new ArrayList<>();
+		     
 
 		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
 				ObjectInputStream ois = new ObjectInputStream(fis)){

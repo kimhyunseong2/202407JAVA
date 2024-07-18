@@ -5,10 +5,10 @@ public class Array1 {
 	public static void main(String[] args) {
 		int scores[] = new int[]{83, 90, 87}; 
 		int scores2[] = {83, 90, 87}; 
-		int sum = 0;
+		double sum = 0;
 		double avg = 0;
 		
-		System.out.println(scores[5]);
+		System.out.println(scores[scores.length-1]);
 		
 		for (int i=0; i<scores.length; i++) {
 			sum += scores[i];
@@ -16,7 +16,9 @@ public class Array1 {
 		avg = sum/scores.length;
 		System.out.println("총합: " + sum);
 		System.out.println("평균: " + avg);
-		
+		for (int i=0; i<scores.length; i++) {
+			System.out.println(scores[i]);
+		}
 		
 		int myArr[] = new int[5]; //배열 생성 (초기화)
 		
