@@ -48,7 +48,7 @@ public class MyFrame extends JFrame{
 				Member[]list2 = (Member[]) ois.readObject();
 				list = new ArrayList<>(Arrays.asList(list2)); //배열을 ArrayList로
 
-				System.out.println("파일에서 객체를 가져왔습니다.");
+				ta.setText("파일에서 객체를 가져왔습니다.\n");
 
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
@@ -84,8 +84,6 @@ public class MyFrame extends JFrame{
 		con.add(jp3, BorderLayout.SOUTH);
 		jp3.setLayout(new FlowLayout());
 		jp3.add(bt1);
-		
-
 		jp3.add(bt2);
 		jp3.add(bt3);
 		jp3.add(bt4);
@@ -110,6 +108,7 @@ public class MyFrame extends JFrame{
 					
 					}else {
 						ta.setText("로그인실패 다시입력하세요!\n" + String.valueOf(member));
+						break;
 					}
 				}
 				
@@ -120,6 +119,12 @@ public class MyFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ta.setText("회원 가입\n[필수 정보 입력]\n1. 이름(아이디)\n2. 주민번호 앞 6자리(패스워드)\n3. 전화번호 \n\n"
+						+ "[입력된 내용]\n이름:"+tf1.getText()+"\n주민번호 앞 6자리:"+tf2.getText()+"\n전화번호:"+tf3.getText());
+
+
+				
+					
 				
 				
 			}

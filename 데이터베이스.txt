@@ -1,0 +1,12 @@
+7월19일 코드참조
+정보
+CRUD
+Create:insert
+Read
+Update
+Delete
+
+create table 테이블 이름(... ) : 테이블 생성
+insert into 테이블 이름 values(... ) : 테이블 안에 요소 삽입
+drop table 테이블 이름 : 테이블 삭제
+-----------------------------------------------------------

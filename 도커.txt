@@ -110,3 +110,4 @@ docker run --name wordpress000ex12 -dit --net=wordpress000net1 -p 8085:80
 ------------------------------------------------------------------
 virtualBox 설치
 페이지358쪽~ 참고
+visual code에 Remote설치
