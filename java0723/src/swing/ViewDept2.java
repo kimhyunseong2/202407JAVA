@@ -1,4 +1,4 @@
-package swingjdbc;
+package swing;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -48,7 +49,7 @@ public class ViewDept2 extends JFrame{
 		con.add(jp2, BorderLayout.CENTER);
 		
 		
-		this.setTitle("view dept 테이블");
+		this.setTitle("select 문장을 넣으세요");
 		this.setBounds(1000, 200, 600, 400);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,29 +58,25 @@ public class ViewDept2 extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String str = tf.getText();
-				String sql = String.format("select deptno,dname,loc from dept where loc like '%%%s%%'", str);
+				String sql = tf.getText();
 				
 				try {
-					ResultSet rs = stmt.executeQuery(sql);
-					ta.setText("");
-					
-					boolean flag = true;
-					
-					while (rs.next()) {
-						flag = false;
-						int deptno = rs.getInt("deptno");
-						String dname = rs.getString("dname");
-						String loc = rs.getString("loc");
-						
-						ta.append(String.format("%d %s %s\n", deptno,dname,loc));
-					}
-					if (flag) {
-						JOptionPane.showMessageDialog(jf, "해당 자료없습니다.", "정보", JOptionPane.INFORMATION_MESSAGE);
-					}
+					 ResultSet rs = stmt.executeQuery(sql);
+
+			            ResultSetMetaData rsmd = rs.getMetaData();
+			            int columnsNumber = rsmd.getColumnCount();
+			            ta.setText("");
+			            while (rs.next()) {
+			                for (int i = 1; i <= columnsNumber; i++) {
+			                    if (i > 1) ta.append(",  ");
+			                    String columnValue = rs.getString(i);
+			                    ta.append(rsmd.getColumnName(i) + ": " + columnValue);
+			                }
+			                ta.append("\n");
+			            }
 					
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(jf, "해당 자료없습니다.", "정보", JOptionPane.INFORMATION_MESSAGE);
 					e1.printStackTrace();
 				}
 				

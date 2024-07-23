@@ -1,4 +1,4 @@
-package swingjdbc;
+package thread3;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -10,23 +10,27 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ViewDept2 extends JFrame{
+public class ViewDept extends JFrame{
 	JTextField tf = new JTextField(20);
 	JButton jb = new JButton("조회");
 	JTextArea ta = new JTextArea(15,45);
 	Connection conn;
 	Statement stmt;
-	JFrame jf;
-	ViewDept2(){
-		jf = this;
+	ViewDept(){
+//		JPanel jp3 = new JPanel();
+//		JLabel lb1 = new JLabel("test");
+//		jp3.add(lb1);
+//		Thread thread = new Thread(new Time());
+//		thread.start();
 		String URL = "jdbc:mysql://localhost:3307/spring5fs";
 		
 		try {
@@ -47,6 +51,11 @@ public class ViewDept2 extends JFrame{
 		jp2.add(ta); 
 		con.add(jp2, BorderLayout.CENTER);
 		
+		Time time = new Time();
+		Thread thread = new Thread(time);
+		thread.start();
+		con.add(time, BorderLayout.SOUTH);
+		
 		
 		this.setTitle("view dept 테이블");
 		this.setBounds(1000, 200, 600, 400);
@@ -57,26 +66,19 @@ public class ViewDept2 extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String str = tf.getText();
-				String sql = String.format("select deptno,dname,loc from dept where loc like '%%%s%%'", str);
+				String sql = "select deptno, dname, loc from dept";
 				
 				try {
 					ResultSet rs = stmt.executeQuery(sql);
 					ta.setText("");
-					
-					boolean flag = true;
-					
 					while (rs.next()) {
-						flag = false;
 						int deptno = rs.getInt("deptno");
 						String dname = rs.getString("dname");
 						String loc = rs.getString("loc");
 						
 						ta.append(String.format("%d %s %s\n", deptno,dname,loc));
 					}
-					if (flag) {
-						JOptionPane.showMessageDialog(jf, "해당 자료없습니다.", "정보", JOptionPane.INFORMATION_MESSAGE);
-					}
+					
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -90,6 +92,46 @@ public class ViewDept2 extends JFrame{
 	
 	
 	public static void main(String[] ar) {
-		new ViewDept2();
+		
+		new ViewDept();
+		
 	}
+	
+//	class MyPanel extends JPanel {
+//		JLabel lb1;
+//		
+//		MyPanel() {
+//			lb1 = new JLabel();
+//			this.add(lb1);
+//		}
+//		
+//	}
+	
+	public class Time extends JPanel implements Runnable{
+		JLabel lb1;
+		
+		Time() {
+			lb1 = new JLabel();
+			this.add(lb1);
+		}
+		@Override
+		public void run() {
+			for (;;) {
+			LocalTime localtime = LocalTime.now();
+			String str = String.format("%d:%d:%d\n",
+					localtime.getHour(),localtime.getMinute(),localtime.getSecond());
+				lb1.setText(str);
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+
+		}
+	}
+
 }

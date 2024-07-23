@@ -10,8 +10,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +34,7 @@ public class MyFrame extends JFrame{
 	JTextField tf1 = new JTextField(8);
 	JTextField tf2 = new JTextField(8);
 	JTextField tf3 = new JTextField(8);
-	JTextArea ta = new JTextArea(15,40);
+	JTextArea ta = new JTextArea(30,50);
 	JButton bt1 = new JButton("로그인");
 	JButton bt2 = new JButton("회원가입");
 	JButton bt3 = new JButton("예금");
@@ -48,19 +50,20 @@ public class MyFrame extends JFrame{
 				Member[]list2 = (Member[]) ois.readObject();
 				list = new ArrayList<>(Arrays.asList(list2)); //배열을 ArrayList로
 
-				ta.setText("파일에서 객체를 가져왔습니다.\n");
+				ta.append("파일에서 객체를 가져왔습니다.\n");
 
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			for (Member member : list) {
 				
-					System.out.println(member);
+				ta.append(String.valueOf(member+"\n"));
 				
 			}
 
-			System.out.println("총회원수:"+list.size());
+			ta.append("총회원수:"+list.size());
 
+			
 				
 		
 		JPanel jp1 = new JPanel();
@@ -89,7 +92,7 @@ public class MyFrame extends JFrame{
 		jp3.add(bt4);
 		jp3.add(bt5);
 		
-		this.setBounds(1200, 200, 600, 400);
+		this.setBounds(1200, 200, 800, 600);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -119,7 +122,8 @@ public class MyFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ta.setText("회원 가입\n[필수 정보 입력]\n1. 이름(아이디)\n2. 주민번호 앞 6자리(패스워드)\n3. 전화번호 \n\n"
+				ta.setText("");
+				ta.append("회원 가입\n[필수 정보 입력]\n1. 이름(아이디)\n2. 주민번호 앞 6자리(패스워드)\n3. 전화번호 \n\n"
 						+ "[입력된 내용]\n이름:"+tf1.getText()+"\n주민번호 앞 6자리:"+tf2.getText()+"\n전화번호:"+tf3.getText());
 
 
@@ -159,7 +163,17 @@ public class MyFrame extends JFrame{
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
-				// 파일 저장 위치
+				Member[] list2 = list.toArray(new Member[list.size()]); // ArrayList를 배열로
+				try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
+						ObjectOutputStream oos = new ObjectOutputStream(fos)){
+					
+					oos.writeObject(list2);
+					System.out.println("객체를 파일에 저장했습니다.");
+					
+					
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				
 				
 				JFrame frame = (JFrame)e.getWindow();
