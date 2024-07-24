@@ -12,13 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class MyFrame extends JFrame {
+public class MyFrame2 extends JFrame {
 	
-	String[][] path = {{"stand.gif"},{"walk1.gif", "walk2.gif"},{"run1.gif", "run2.gif", "run3.gif"}};
-	int pathIndex;
-	
-
-	MyFrame() {
+	String[] walk = {"walk1.gif", "walk2.gif"};
+	String[] stand = {"stand.gif"};
+	String[] run = {"run1.gif", "run2.gif", "run3.gif"};
+	PATH p = PATH.STAND;
+	String[] path = stand;
+	MyFrame2() {
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -45,9 +46,23 @@ public class MyFrame extends JFrame {
 		@Override
 		public void run() {
 			while (true) {
-
-				for (int i = 0; i < path[pathIndex].length; i++) {
-					lbl.setIcon(new ImageIcon("./src/" + path[pathIndex][i]));
+				switch(p) {
+				case STAND:
+					path = stand;
+					break;
+				case WALK:
+					path = walk;
+					break;
+				case RUN:
+					path = run;
+					break;
+				default:
+					path = stand;
+				}
+				
+				for (int i = 0; i < path.length; i++) {
+					lbl.setIcon(new ImageIcon("./src/" + path[i]));
+//					System.out.println(i);
 					try {
 						Thread.sleep(300);  // 0.3초
 					} catch (InterruptedException e) {}
@@ -77,11 +92,11 @@ public class MyFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == standingBtn) {
-				pathIndex = 0;
+				p = PATH.STAND;
 			} else if (e.getSource() == walkingBtn) {
-				pathIndex = 1;
+				p = PATH.WALK;
 			} else if (e.getSource() == runningBtn) {
-				pathIndex = 2;
+				p = PATH.RUN;
 			}
 		}
 	}

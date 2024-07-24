@@ -1935,4 +1935,12 @@ NullPointerException, ArrayIndexOutOfBoundsException, NumberFormatException, Cla
 
 Consumer: 매개값 O, 라턴값 X
 ------------------------------------------------------------------
+7월24일
+정보
+-디자인 패턴 23가지
+Iterator패턴, Adapter패턴, TemplateMethod패턴, Singleton패턴
+코드 javaDP 참조
 
+-tomcat서버연결
+tomcat9.0 다운로드
+이클립스에서 window->preferences->server->runtime...->add->apache9.0
