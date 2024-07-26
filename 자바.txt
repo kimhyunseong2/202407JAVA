@@ -1944,3 +1944,189 @@ Iterator패턴, Adapter패턴, TemplateMethod패턴, Singleton패턴
 -tomcat서버연결
 tomcat9.0 다운로드
 이클립스에서 window->preferences->server->runtime...->add->apache9.0
+------------------------------------------------------------------
+7월25일
+정보
+-익명 자식 객체: 자식 클래스가 재사용되지 않고 오로지 특정 위치에서 사용할 경우라면 자식 클래스를
+명시적으로 선언하는 것은 귀찮은 작업이 된다 이 경우 익명 자식 객체를 생성해서 사용하는 것이 좋은 방법이다
+
+익명 자식 객체 생성하는 방법
+-부모클래스 [필드|변수] = new 부모클래스(매개값, ...) {
+//필드
+//메소드
+};
+
+익명 구현 객체: 구현 클래스가 재사용되지 않고 오로지 특정 위치에서 사용할 경우라면 구현 클래스를
+명시적으로 선언하는 것은 귀찮은 작업이 된다 이 경우 익명 구현 객체를 생성해서 사용하는 것이 좋은 방법이다
+
+익명 구현 객체 생성하는 방법
+-인터페이스 [필드|변수] = new 인터페이스() {
+//인터페이스에 선언된 추상 메소드의 실제 메소드 선언
+//필드
+//메소드
+};
+
+-예외처리에서 throws 키워드: 메소드 선언부 끝에 작성되어 메소드에서 처리하지 않은 예외를 호출한 곳으로
+떠넘기는 역할을 한다 throws 키워드 뒤에는 떠넘길 예외클래스를 쉼표로 구분해서 나열해주면 된다
+
+Arrays.sort는 배열을 정렬 할 때 사용
+Collections.sort는 리스트를 정렬 할 때 사용
+
+서블릿에서 response.setContentType("text/html;charset=utf8"); 이 코드를 사용하면 웹 페이지에 한글을나오게한다
+PrintWriter out = response.getWriter(); 이 코드보다 위에 써야한다
+
+서블릿에서 request.setCharacterEncoding("UTF-8"); 이 코드를 사용하면 한글이 깨지지않고 나온다
+------------------------------------------------------------------
+익명 자식 객체 코드
+class Parent {
+	int x;
+	void method() {
+		System.out.println(x);
+	}
+}
+//new Parent(){}; = 익명자식객체
+public class Ex1 {
+
+	public static void main(String[] args) {
+		Parent parent = new Parent() {
+			
+			void method2() {
+				System.out.println("오직 나만 사용");
+			}
+			@Override
+			void method() {
+				x = 100;
+				System.out.println("나는 익명 자식 객체!");
+				super.method();
+				method2();
+			}   
+			
+		};
+		parent.method();
+//		parent.method2();  X
+	}
+
+}
+------------------------------------------------------------------
+익명 구현 객체 코드
+interface Parent2 {
+	void method();
+}
+
+public class Ex2 {
+
+	public static void main(String[] args) {
+		Parent2 parent2 = new Parent2() {
+			
+			@Override
+			public void method() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+
+	}
+
+}
+------------------------------------------------------------------
+throws키워드 사용
+public static void method() throws ClassNotFoundException {
+		Class.forName("asdh.asds.asd");
+	}
+	
+	public static void main(String[] args) {
+		try {
+			method();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
+------------------------------------------------------------------
+Arrays.sort를 사용해 배열을 정렬하는 코드
+package java0725;
+
+import java.util.Arrays;
+
+public class ArrayEx1 {
+
+	public static void main(String[] args) {
+		int[] array = {3,1,13,2,8,5,1};
+		Arrays.sort(array);
+		System.out.println(Arrays.toString(array));
+		for (int n : array) {
+			System.out.println(n);
+		}
+	}
+
+}
+------------------------------------------------------------------
+Comparator을 이용한 배열을 역순으로 정렬하는 코드
+package java0725;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class ArrayEx2 {
+
+	public static void main(String[] args) {
+		Integer[] array = {3,1,13,2,8,5,1};
+		
+		Comparator<Integer> c = new Comparator<Integer>() {
+			
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o2.compareTo(o1);
+			}
+		};
+		
+		Arrays.sort(array, c);
+		System.out.println(Arrays.toString(array));
+		for (int n : array) {
+			System.out.println(n);
+		}
+	}
+
+}
+------------------------------------------------------------------
+Arrays.binarySearch를 이용한 코드
+package java0725;
+
+import java.util.Arrays;
+
+public class ArrayEx3 {
+
+	public static void main(String[] args) {
+		int[] array = {1,1,4,5,7,8,11,12,17,21,24}; // 정렬이 된 상태에서 가능
+//		int[] array = {3,5,1,6,2,9,4,12,13,16,24};
+		int found = Arrays.binarySearch(array, 5);
+		System.out.println(found);
+
+	}
+
+}
+------------------------------------------------------------------
+7월26일
+정보
+웹의 동작
+-요청(Request): 클라이언트에서 서버로 정보를 요구하기 위해 보내는 메시지 이다. 이 요청 방식에는 GET방식과POST방식이 있다
+-응답(Response): HTTP에서 요구된 메시지에 대한 응답, HTML, 이미지 등이 응답의 내용이 된다
+
+정적 페이지: 변하지 않는 성격을 가진 페이지
+동적 페이지: 자동으로 생성된 페이지, 기존의 웹 서버에 새로운 기능을 가진 프로그램을 탑재하여 동적으로 HTML을 생성
+
+동적페이지                                                                              서버측
+사용자(CLients)  <-------->      웹서버     <------------> 데스크탑  <-------->  동적인 웹 컨테츠에 응답하기 위한 부가적인 프로그램
+                        http 요청/응답                                                              http 요청/응답    
+
+
+서블릿이란
+JSP 이전 세대의 동적 웹페이지 생성 언어
+Server + Applet의 합성어 ->Servlet
+브라우저에 호출하면 WAS에서 웹 페이지를 동적으로 생성
+
+WAS의종류
+Tomcat, WebLogic(BEA), WebSphere(IBM), ZEUS(티맥스-국산), JBOSS ,Sun Application Server(Sun microsystems)
