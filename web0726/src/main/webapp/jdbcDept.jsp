@@ -6,7 +6,7 @@
     pageEncoding="UTF-8"%>
 
 <%
-String loc1 = request.getParameter("loc");
+String deptno1 = (request.getParameter("deptno"));
 String URL = "jdbc:mysql://localhost:3307/spring5fs";
 Connection conn = null;
 PreparedStatement pstmt = null;
@@ -14,9 +14,9 @@ Class.forName("com.mysql.cj.jdbc.Driver");
 //out.println("드라이버 로딩!!");
 conn = DriverManager.getConnection(URL, "root" , "mysql");
 //out.println("mysql 접속!!");
-String sql = "select * from dept where loc like ?";
+String sql = "select * from dept where deptno like ?";
 pstmt = conn.prepareStatement(sql);
-pstmt.setString(1, loc1);
+pstmt.setString(1, deptno1);
 ResultSet rs = pstmt.executeQuery();
 %>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ ResultSet rs = pstmt.executeQuery();
 </head>
 <body>
 <form>
-<input type="text" name="loc">
+<input type="text" name="deptno">
 <input type="submit">
 </form>
 <p>
