@@ -91,7 +91,7 @@ if (id != null) {
 <head>
 <meta charset="UTF-8">
 <style>
-        table { width: 600px; text-align: left; }
+        table { width: 690px; text-align: left; }
         th    { width: 100px; background-color: cyan; }
     </style>
 <title>회원 관리 프로그램</title>
