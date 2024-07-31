@@ -16,11 +16,13 @@ String sql = "select * from board where num = ?";
 pstmt = conn.prepareStatement(sql);
 pstmt.setString(1, num);
 ResultSet rs = pstmt.executeQuery();
+
 String writer = "";
 String title = "";
 String content = "";
 String regtime = "";
 int hits = 0;
+
 if(rs.next()) {
 	writer = rs.getString("writer");
 	title = rs.getString("title");
