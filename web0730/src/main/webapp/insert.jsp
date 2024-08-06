@@ -14,7 +14,7 @@ Connection conn = null;
 PreparedStatement pstmt = null;
 Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(URL, "root", "mysql");
-
+String userId = (String) session.getAttribute("userName");
 String sql = "insert into board(writer, title, content, regtime, hits) values (?,?,?,now(),0)";
 pstmt = conn.prepareStatement(sql);
 pstmt.setString(1, writer);

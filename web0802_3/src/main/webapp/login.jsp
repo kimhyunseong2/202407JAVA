@@ -6,13 +6,30 @@
 
 <%
    
-String id = request.getParameter("id");
-String pw = request.getParameter("pw");
-MemberDAO dao = new MemberDAO();
-MemberDTO dto = dao.getSelect(id,pw,"");
-      
-            response.sendRedirect("login_main.jsp");   
-            return;
+Class.forName("com.mysql.cj.jdbc.Driver");
+try ( 
+    Connection conn = DriverManager.getConnection(
+    		 "jdbc:mysql://localhost:3307/spring5fs", "root", "mysql");
+    Statement stmt = conn.createStatement();
+        
+        // 지정된 아이디와 비밀번호를 가진 레코드가 있는지 쿼리 
+    ResultSet rs = stmt.executeQuery(String.format(         
+            "select * from member where id='%s' and pw='%s'",
+            request.getParameter("id"), request.getParameter("pw")));
+) {
+    // 그런 레코드가 있으면, 세션 속성을 등록하고, 메인 화면으로 돌아감
+    if (rs.next()) {
+        session.setAttribute("userId",   rs.getString("id"  ));
+        session.setAttribute("userName", rs.getString("name"));
+            
+        response.sendRedirect("login_main.jsp");   
+        return;
+    }
+    
+} catch(Exception e) {
+    e.printStackTrace();
+}
+          
       
 %>
 
