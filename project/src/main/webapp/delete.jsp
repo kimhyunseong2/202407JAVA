@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
-String userName = request.getParameter("userName");
+String num = request.getParameter("num");
 
 String URL = "jdbc:mysql://localhost:3307/spring5fs";
 Connection conn = null;
@@ -13,11 +13,11 @@ PreparedStatement pstmt = null;
 Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(URL, "root", "mysql");
 
-String sql = "delete from reboard where userName = ?";
+String sql = "delete from reboard where num = ?";
 pstmt = conn.prepareStatement(sql);
-pstmt.setString(1, userName);
+pstmt.setString(1, num);
 pstmt.executeUpdate();
-response.sendRedirect("board.jsp"); 
+
 	
 
 
@@ -29,6 +29,9 @@ response.sendRedirect("board.jsp");
 <title>Insert title here</title>
 </head>
 <body>
-
+<script>
+    alert('삭제되었습니다.');
+    window.location.href="board.jsp";
+</script>
 </body>
 </html>

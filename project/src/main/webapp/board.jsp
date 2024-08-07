@@ -102,7 +102,7 @@ while(rs.next()) {
         <td >
             <%=title %>
         </td>
-        <td style="text-align:left;"><a href="view.jsp?userName=<%=userName%>"><%=userName %></a></td>
+        <td style="text-align:left;"><a href="view.jsp?num=<%=num%>"><%=userName %></a></td>
         <td><%=regtime %></td>
         <td><%=hits %></td>
     </tr>

@@ -5,9 +5,9 @@
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
-String userName = request.getParameter("userName");
 String title = request.getParameter("title");
 String content = request.getParameter("content");
+String num = request.getParameter("num");
 
 String URL = "jdbc:mysql://localhost:3307/spring5fs";
 Connection conn = null;
@@ -15,13 +15,13 @@ PreparedStatement pstmt = null;
 Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(URL, "root", "mysql");
 
-String sql = "update reboard set  title = ?, content = ? where userName = ?";
+String sql = "update reboard set  title = ?, content = ? ,regtime = now() where num = ?";
 pstmt = conn.prepareStatement(sql);
 pstmt.setString(1, title);
 pstmt.setString(2, content);
-pstmt.setString(3, userName);
+pstmt.setString(3, num);
 pstmt.executeUpdate();
-response.sendRedirect("board.jsp"); // 리다이렉트
+
 %>
 <!DOCTYPE html>
 <html>
@@ -30,6 +30,9 @@ response.sendRedirect("board.jsp"); // 리다이렉트
 <title>Insert title here</title>
 </head>
 <body>
-
+<script>
+    alert('수정 되었습니다.');
+    window.location.href="board.jsp";
+</script>
 </body>
 </html>

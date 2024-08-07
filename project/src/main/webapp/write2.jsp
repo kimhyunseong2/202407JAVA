@@ -11,14 +11,15 @@ PreparedStatement pstmt = null;
 Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(URL, "root", "mysql");
 
-String userName = request.getParameter("userName");
-String sql = "select * from reboard where userName = ?";
+String num = request.getParameter("num");
+String sql = "select * from reboard where num = ?";
 pstmt = conn.prepareStatement(sql);
-pstmt.setString(1, userName);
+pstmt.setString(1, num);
 ResultSet rs = pstmt.executeQuery();
 
 
 String title = "";
+String userName="";
 String content = "";
 String regtime = "";
 int hits = 0;
@@ -26,6 +27,7 @@ int hits = 0;
 if(rs.next()) {
 	
 	title = rs.getString("title");
+	userName = rs.getString("userName");
 	content = rs.getString("content");
 	regtime = rs.getString("regtime");
 	hits = rs.getInt("hits");
@@ -112,7 +114,7 @@ if(rs.next()) {
 <body>
 
 <form method="post" action="update.jsp">
-<input type="hidden" name="userName" value="<%=userName %>">
+<input type="hidden" name="num" value="<%=num %>">
     <table>
         <tr>
             <th>제목</th>

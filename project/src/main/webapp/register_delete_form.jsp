@@ -98,6 +98,7 @@ if (rs.next()) {
 </tr>
 <tr>
 <td colspan="2"><input type="submit" value="탈퇴" ></td>
+
 </tr>
 </table>
 </form>

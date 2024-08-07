@@ -11,13 +11,14 @@ PreparedStatement pstmt = null;
 Class.forName("com.mysql.cj.jdbc.Driver");
 conn = DriverManager.getConnection(URL, "root", "mysql");
 
-String userName = request.getParameter("userName");
-String sql = "select * from reboard where userName= ?";
+String num = request.getParameter("num");
+String sql = "select * from reboard where num= ?";
 pstmt = conn.prepareStatement(sql);
-pstmt.setString(1, userName);
+pstmt.setString(1, num);
 ResultSet rs = pstmt.executeQuery();
 
 String title = "";
+String userName="";
 String content = "";
 String regtime = "";
 int hits = 0;
@@ -27,10 +28,11 @@ if(rs.next()) {
 	content = rs.getString("content");
 	regtime = rs.getString("regtime");
 	hits = rs.getInt("hits");
+	userName = rs.getString("userName");
 	
-	sql = "update reboard set hits = hits + 1 where userName =?";
+	sql = "update reboard set hits = hits + 1 where num =?";
 	pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1, userName);
+	pstmt.setString(1, num);
 	pstmt.executeUpdate();
 }
 %>
@@ -139,9 +141,9 @@ if(rs.next()) {
     if (userName.equals(session.getAttribute("userName"))) {
 %>
 <input type="button" value="수정"
-       onclick="location.href='write2.jsp?userName=<%=userName%>'">
+       onclick="location.href='write2.jsp?num=<%=num%>'">
 <input type="button" value="삭제"
-       onclick="location.href='delete.jsp?userName=<%=userName%>'">
+       onclick="location.href='delete.jsp?num=<%=num%>'">
 <%
     }
 %>

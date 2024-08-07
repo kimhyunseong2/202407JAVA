@@ -18,9 +18,60 @@ update 테이블명 set 칼럼명 - 테이블에 칼럼값을 변경할때 사�
 -----------------------------------------------------------
 8월6일
 oracle
+관계형 데이터 모델
 -개체(entiy) = 테이블
 -속성(attribute) = 컬럼
 -관계(relationship)
 
+SQL(Structured Query Language): RDBMS에서 데이터를 다루고 관리하는데 사용하는 데이터베이스 질의 언어
+종류(oracle책 p26참고)
+-DQL
+-DML
+-DDL
+-TCL
+-DCL
+
+관계형 데이터베이스의 구성요소(p29~37 참고)
+테이블
+가로줄을 행(row) 세로줄을 열(column)
+
 기본키(PK: Primary Key) = unique + not null
 외래키(FK: Foreign Key) = 다른 테이블의 기본키 
+
+데이터베이스에 저장하는 데이터는 다양한 형태를 가지고 있다
+자료형(p39에 표 참고)
+
+테이블 구성 살펴보는 명령어
+DESC 테이블이름;
+
+셀렉션(selection): 행 단위로 원하는 데이터를 조회하는 방식
+프로젝션(projection): 열 단위로 원하는 데이터를 조회하는 방식
+
+조인(join): 두 개 이상의 테이블을 양옆에 연결하여 마치 하나의 테이블인 것처럼 데이터를 조회하는 방식
+
+DISTINCT: 중복 데이터를 삭제할때 사용
+
+ORDER BY: 원하는 순서로 출력 데이터를 정렬할때 사용
+오름차순 정렬 ASC | 내림차순 정렬 DESC
+
+WHERE절: 필요한 데이터만 출력할때 사용
+
+여러 개 조건식을 사용하는 AND, OR 연산자(p97, p99 표 참고)
+AND는 둘다 ture이면 ture 하나라도 false면 false
+OR는 하나라도 ture면 ture 
+
+등가 비교 연산자(p104 표 참고)
+
+논리 부정 연산자(NOT)
+
+IN 연산자(p106,107 참고)
+
+BETWEEN A AND B 연산자(p109 참고)
+
+LIKE 연산자와 와일드 카드(p110 참고)
+
+IS NULL 연산자(p114 참고)
+
+집합 연산자(UNION)(p119 참고)
+
+

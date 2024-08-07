@@ -70,7 +70,7 @@
             <input type="button" value="회원정보 수정" 
                    onclick="location.href= 'register_update_form.jsp'" >
             <input type="button" value="회원탈퇴" onclick="location.href='register_delete_form.jsp'"> 
-            <input type="button" value="게시판 작성" onclick="location.href='board.jsp'">
+            <input type="button" value="게시판" onclick="location.href='board.jsp'">
         </form>
 <%  
     } else {                       
