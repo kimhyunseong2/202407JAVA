@@ -3,6 +3,9 @@
 <%
     session.removeAttribute("userId"  );
     session.removeAttribute("userName");
-
-    response.sendRedirect("main.jsp"); // 로그인 메인 화면으로
+   
 %> 
+<script>
+alert('로그아웃 되었습니다.');
+window.location.href="login_main.jsp";
+</script>
