@@ -9,6 +9,8 @@
     pageEncoding="UTF-8"%>
 
 <%
+p
+
 String num = request.getParameter("num");
 BoardDAO dao = new BoardDAO();
 BoardDTO dto = dao.getOne(Integer.parseInt(num));

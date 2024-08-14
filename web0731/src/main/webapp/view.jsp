@@ -3,10 +3,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+p
+
 String num = request.getParameter("num");
 BoardDAO dao = new BoardDAO();
 BoardDTO dto = dao.getOne(Integer.parseInt(num));
-
 %>
 <!DOCTYPE html>
 <html>

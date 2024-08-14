@@ -6,7 +6,6 @@
 <%
 BoardDAO dao = new BoardDAO();
 List<BoardDTO> list = dao.getBoardList();
-
 %>
 <!DOCTYPE html>
 <html>

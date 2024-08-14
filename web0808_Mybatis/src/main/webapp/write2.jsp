@@ -12,6 +12,6 @@
 String num = request.getParameter("num");
 BoardDAO dao = new BoardDAO();
 BoardDTO dto = dao.getOne(Integer.parseInt(num));
-
+request.setAttribute("dto", dto);
 %>
 <jsp:forward page="write2_view.jsp"/>

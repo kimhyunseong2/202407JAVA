@@ -1,5 +1,5 @@
 <%@page import="board.BoardDTO"%>
-<%@page import="board.BoardDAO2"%>
+<%@page import="board.BoardDAO"%>
 <%@page import="dept.DeptDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="dept.DeptDAO"%>
@@ -13,7 +13,9 @@
 </head>
 <body>
 <%
-BoardDAO2 dao = new BoardDAO2();
+p
+
+BoardDAO dao = new BoardDAO();
 List<BoardDTO> list = dao.listBoard();
 for (BoardDTO dto : list){
 		out.println(dto+"<br>");
