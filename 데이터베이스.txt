@@ -867,11 +867,167 @@ FOREIGN KEY 지정하기
 
 FOREIGN KEY로 참조 행 데이터 삭제하기(p387 표 참고)
 
-제약 조건 비활성화, 활성호(p393 참고)
+제약 조건 비활성화, 활성화(p393 참고)
 
 -비활성화: ALTER TABLE 테이블 이름
 	DISABLE [NOVALIDATE / VALIDATE(선택)] CONSTRAINT 제약조건이름
 
 -활성화: ALTER TABLE 테이블 이름
              ENABLE [NOVALIDATE / VALIDATE(선택)] CONSTRAINT 제약조건이름
+-----------------------------------------------------------------------------------------------------------------
+8월 19일
+oracle책 p394 문제
+1. create table dept_const(
+    deptno number(2) constraint DEPTCONST_DEPTNO_PK primary key,
+    dname varchar2(14) constraint DEPTCONST_DNAME_UNQ unique,
+    loc varchar2(13) constraint DEPTCONST_LOC_NN not null)
 
+2. create table emp_const(
+    empno number(4) constraint EMPCONST_EMPNO_PK primary key,
+    ename varchar2(10) constraint EMPCONST_ENAME_NN not null,
+    job varchar2(9),
+    tel varchar2(20) constraint EMPCONST_TEL_UNQ unique,
+    hiredate date,
+    sal number(7,2) constraint EMPNOCONST_SAL_CHK check (sal between 1000 and 9999),
+    comm number(7,2),
+    deptno number(2) constraint EMPNOCONST_DEPTNO_FK references dept_const (deptno)) 
+
+3.  select table_name, constraint_name, constraint_type
+    from user_constraints
+    where table_name in ('EMP_CONST', 'DEPT_CONST')
+    order by constraint_name
+
+데이터 형태와 범위를 정하는 제약조건(p390 참고)
+-CHECK: 열에 저장할 수 있는 값의 범위 또는 패턴을 정의할 때 사용한다
+
+기본값을 정하는 제약조건(p392 참고)
+-DEFAULT: 특정 열에 저장할 값이 지정되지 않았을 경우에 기본값을 지정할 수 있는데 이때 사용
+
+사용자 관리(p396 참고)
+
+데이터베이스 스키마: 데이터베이스에서 데이터 간 관계, 데이터 구조, 제약 조건 등 데이터를 저장 및 관리하기 위해 정의한
+데이터베이스 구조의 범위를 스키마(schema)를 통해 그룹 단위로 분류한다
+오라클 데이터베이스에서는 스키마와 사용자를 구별하지 않고 사용하기도 한다
+사용자: 데이터를 사용 및 관리하기 위해 오라클 데이터베이스에 접속하는 개체
+스키마: 오라클 데이터베이스에 접속한 사용자와 연결된 객체
+
+사용자 생성
+create user 사용자이름(필수)
+identified by 패스워드(필수)
+
+권한 관리(p402 참고)
+-시스템 권한: 사용자 생성과 정보 수정 및 삭제, 데이터베이스 접근, 오라클 데이터베이스의 여러 자원과 객체 생성 및 관리 등의
+권한을 포함 데이터베이스 관리 권한이 있는 사용자가 부여할 수 있는 권한
+
+시스템 권한 부여
+GRANT [시스템 권한] TO [사용자 이름/롤(Role)이름/PUBLIC]
+[WITH ADMIN OPTION]
+
+시스템 권한 취소
+REVOKE [시스템 권한] FROM [사용자 이름/롤(Role)이름/PUBLIC]
+
+-객체권한: 특정 사용자가 생성한 테이블, 인덱스, 뷰, 시퀀스 등과 관련된 권한
+
+객체 권한 부여
+GRANT [객체 권한/ALL PRIVILEGES]
+       ON [스키마.객체 이름]
+       TO [사용자 이름/롤(Role)이름/PUBLIC]
+       [WITH ADMIN OPTION]
+
+객체 권한 취소
+REVOKE 객체 권한/ALL PRIVILEGES](필수)
+       ON [스키마.객체 이름](필수)
+       FROM [사용자 이름/롤(Role)이름/PUBLIC](필수)
+       [CASCADE CONSTRAINTS/FORCE](선택)
+
+롤 관리(p412 참고)
+
+PL/SQL 구조(p419 참고)
+DECLARE
+	[실행에 필요한 여러 요소 선언];
+BEGIN	
+	[작업을 위해 실제 실행하는 명령어];
+EXCEPTION
+	[PL/SQL수행 도중 발생하는 오류 처리];
+END;
+
+SET SERVEROUTPUT ON; --실행 결과를 화면에 출력
+
+변수와 상수(p423 참고)
+-변수 선언
+변수 이름 자료형 := 값 또는 값이 도출되는 여러 표현식;
+
+-상수 정의
+변수 이름 CONSTANT 자료형 := 값 또는 값을 도출하는 여러 표현식;
+
+-변수의 기본값 지정
+변수 이름 자료형 DEFAULT := 값 또는 값을 도출하는 여러 표현식;
+
+-변수에 NULL 값 저장 막기
+변수 이름 자료형 NOT NULL := 또는 DEFAULT 값 또는 값을 도출하는 여러 표현식;
+
+변수의 자료형(p427 참고)
+스칼라형: 숫자, 문자열, 날짜 등과 같이 오라클에서 기본으로 정의해 놓은 자료형으로 내부 구성 요소가 없는 단일 값
+
+참조형:변수 이름 테이블이름.열이름%TYPE;
+
+복합형,LOB형
+
+조건 제어문(p431 참고)
+CASE 조건문(p435 참고)
+반복 제어문(p438 참고)
+
+자료형이 다른 여러 데이터를 저장하는 레코드(p446 참고)
+-레코드: 자료형이 각기 다른 데이터를 하나의 변수에 저장하는 데 사용한다
+TYPE 레코드 이름 IS RECORD(
+변수 이름 자료형 NOT NULL := (또는 DEFAULT)값 또는 값이 도출되는 여러 표현식
+
+특정 열을 선택하여 처리하는 커서
+-커서: SELECT문 또는 데이터 조작어 같은 SQL문을 실행했을 때 해당 SQL문을 처리하는 정보를 저장한 메모리 공간
+-----------------------------------------------------------------------------------------------------------------
+8월 20일
+SQL문의 실행순서
+FROM-WHERE-GROUP BY-HAVING-SELECT-ORDER BY
+
+서브 쿼리 중 FROM절에 작성되는 서브쿼리 : 인라인 뷰
+
+오라클 함수는 내장함수, 사용자 정의 함수로 분류할 수 있다(p495 참고)
+
+함수 생성
+CREATE [OR REPLACE] FUNCTION 함수 이름
+[(파라미터 이름1 [IN] 자료형1,
+  파라미터 이름2 [IN] 자료형2,
+  ...
+  파라미터 이름N [IN] 자료형N,
+)]
+RETURN 자료형
+IS | AS
+   선언부
+BEGIN
+   실행부
+   RETURN (반환값);
+ EXCEPTION
+   예외 처리부
+END [함수 이름];
+
+함수 삭제하기
+DROP FUNCTION 함수 이름
+
+-트리거: 데이터베이스 안의 특정 상황이나 동작, 즉 이벤트가 발생할 경우에 자동으로 실행되는 기능을 정의하는 PL/SQL 서브 프로그램
+
+DML 트리거 형식
+CREATE [OR REPLACE] TRIGGER 트리거 이름
+BEFORE | AFTER
+INSERT | UPDATE | DELETE ON 테이블 이름
+REFERENCING OLD AS old | NEW as new
+FOR EACH ROW WHEN 조건식
+FOLLOWS 트리거 이름2, 트리거 이름3 ...
+ENABLE | DISABLE
+
+DECLARE
+     선언부
+BEGIN
+     실행부
+EXCEPTION
+     예외 처리부
+END;
