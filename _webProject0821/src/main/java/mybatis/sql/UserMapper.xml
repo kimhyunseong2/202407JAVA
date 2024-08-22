@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+	<select id="isUser" parameterType="com.board.db.UserDto" resultType="int">
+		select count(*) from users where id = #{id} and pw = #{pw}
+	</select>
+	<select id="findUser" parameterType="String" resultType="com.board.db.UserDto">
+		select * from users where id = #{id} and pw = #{pw}
+	</select>
+	<insert id="insertUser" parameterType="com.board.db.UserDto">
+		insert into users (id,pw,name)
+		values (#{id}, #{pw}, #{name})
+	</insert>
+	
+	<update id="updateUser" parameterType="com.board.db.UserDto">
+		UPDATE users
+		SET id = #{id}, pw = #{pw}
+		WHERE name = #{name}
+	</update>
+
+	<delete id="deleteUser" parameterType="String">
+		DELETE FROM users WHERE id = #{id}
+	</delete>
+
+</mapper>
