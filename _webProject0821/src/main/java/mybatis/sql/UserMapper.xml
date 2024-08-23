@@ -21,7 +21,7 @@
 		WHERE name = #{name}
 	</update>
 
-	<delete id="deleteUser" parameterType="String">
+	<delete id="deleteUser" parameterType="int">
 		DELETE FROM users WHERE id = #{id}
 	</delete>
 

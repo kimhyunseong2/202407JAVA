@@ -39,25 +39,25 @@
 		</div>
 	</nav>
 	<div class="container" style="padding-top: 50px;">
-	<form action="${pageContext.request.contextPath}/register" method="post">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h1 class="text-center mb-4">회원가입</h1>
+            <h1 class="text-center mb-4">회원정보</h1>
             <form>
                 <div class="mb-3">
                     <label for="inputId" class="form-label">아이디</label>
-                    <input type="text" class="form-control" id="inputId" name="id" required>
+                    <input type="text" class="form-control" id="inputId"  value="${customInfo.id}" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">비밀번호</label>
-                    <input type="password" class="form-control" id="inputPassword" name="pw" required>
+                    <input type="password" class="form-control" id="inputPassword"  value="${customInfo.pw }" required>
                 </div>
                 <div class="mb-3">
                     <label for="inputName" class="form-label">이름</label>
-                    <input type="text" class="form-control" id="inputName" name="name" required>
+                    <input type="text" class="form-control" id="inputName"  value="${customInfo.name }" required>
                 </div>
                 
-                <button type="submit" class="btn btn-primary">회원가입</button>
+                <button type="submit" class="btn btn-primary">회원정보 변경</button>
+                <button type="submit" class="btn btn-primary" onclick="location.href='delete?id=${customInfo.id}'">회원탈퇴</button>
             </form>
         </div>
     </div>

@@ -22,7 +22,8 @@
               </li>
               <li class="nav-item">
               <c:if test="${userLoggedIn}">
-            		<li><a class="nav-link" href="${pageContext.request.contextPath}/logout">${customInfo.name}님, Logout</a>
+              		<li><a class="nav-link" href="${pageContext.request.contextPath}/registerView">${customInfo.name}님
+            		<li><a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
             		<li class="nav-item">
                 <a class="nav-link " href="${pageContext.request.contextPath}/list">게시판</a>
               </li>

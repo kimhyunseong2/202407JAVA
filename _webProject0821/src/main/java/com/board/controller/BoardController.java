@@ -12,7 +12,6 @@ import com.board.db.*;
 import com.board.service.BoardService;
 import com.board.service.UserService;
 
-
 @WebServlet("/")
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,14 +28,13 @@ public class BoardController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
-		
-		
+
 		if (com.equals("/main") || com.equals("/")) {
 			view = "main.jsp";
 		}
 		// 주어진 URL에 따라 지정된 동작 수행
 		else if (com.equals("/list")) {
-			
+
 			String tmp = request.getParameter("page");
 			int pageNo = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 1;
 			request.setAttribute("msgList", new BoardService().getMsgList(pageNo));
@@ -46,7 +44,7 @@ public class BoardController extends HttpServlet {
 		} else if (com.equals("/view")) {
 			int num = Integer.parseInt(request.getParameter("num"));
 			HttpSession session = request.getSession();
-	        UserDto userDto = (UserDto) session.getAttribute("customInfo");
+			UserDto userDto = (UserDto) session.getAttribute("customInfo");
 			request.setAttribute("msg", new BoardService().getMsg(num));
 			request.setAttribute("customInfo", userDto);
 			view = "view.jsp";
@@ -70,8 +68,8 @@ public class BoardController extends HttpServlet {
 		} else if (com.equals("/insert")) {
 			request.setCharacterEncoding("utf-8");
 			HttpSession session = request.getSession();
-	        UserDto userDto = (UserDto) session.getAttribute("customInfo");
-	        String writer = userDto != null ? userDto.getName() : request.getParameter("writer");
+			UserDto userDto = (UserDto) session.getAttribute("customInfo");
+			String writer = userDto != null ? userDto.getName() : request.getParameter("writer");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 
@@ -108,45 +106,52 @@ public class BoardController extends HttpServlet {
 
 		} else if (com.equals("/registerForm")) {
 			view = "registerForm.jsp";
-		}else if (com.equals("/register")) {
+		} else if (com.equals("/register")) {
 			request.setCharacterEncoding("utf-8");
+
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 
 			try {
 				new UserService().writeMsg(id, pw, name);
-				view = "redirect:registerView";
+				view = "redirect:main";
 
 			} catch (Exception e) {
 				request.setAttribute("errorMessage", e.getMessage());
 				view = "errorBack.jsp";
 			}
+
+		} else if (com.equals("/registerView")) {
+			view = "registerView.jsp";
+
+		} else if (com.equals("/delete")) {
 			
-		}else if (com.equals("/loginForm")) {
+			view = "redirect:main";
+			
+		} else if (com.equals("/loginForm")) {
 			view = "loginForm.jsp";
 		} else if (com.equals("/login")) {
 			request.setCharacterEncoding("utf-8");
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			UserService userService = new UserService();
-			if(userService.login(id, pw)) {
-			UserDto userDto = userService.getUserFind(id, pw);
-			HttpSession session = request.getSession();
-			session.setAttribute("customInfo", userDto);
-			session.setAttribute("userLoggedIn", true);
-			view = "redirect:main";
-			}else {
+			if (userService.login(id, pw)) {
+				UserDto userDto = userService.getUserFind(id, pw);
+				HttpSession session = request.getSession();
+				session.setAttribute("customInfo", userDto);
+				session.setAttribute("userLoggedIn", true);
+				view = "redirect:main";
+			} else {
 				view = "redirect:loginForm";
 			}
-		}else if(com.equals("/logout")){
+		} else if (com.equals("/logout")) {
 			HttpSession session = request.getSession(false); // 현재 세션 가져오기
-		    if (session != null) {
-		        session.invalidate(); // 세션 무효화
-		    }
-		    view = "redirect:main";
+			if (session != null) {
+				session.invalidate(); // 세션 무효화
+			}
+			view = "redirect:main";
 		}
-		
 
 		// view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅
 		if (view.startsWith("redirect:")) {
